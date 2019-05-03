@@ -19,15 +19,116 @@
 
  <b-container fluid style="margin-top:-88px">
     <b-row>
-      <b-col cols="12" md="8" class="login-screen left-col d-flex  justify-content-center" >
-        <!-- <div class="left-col-text">
-          <span>Discover your carrier</span>
-        </div> -->
+      <b-col cols="12" md="20" class="login-screen left-col d-flex  justify-content-center" >
+        <div class="left-col-text">
+          <!-- <span>Registration Page</span> -->
+
+          <div>
+           <b-card  style="max-width: 740px;">
+    <b-row >
+      <!-- <b-col cols="6">
+        <b-card-img src="https://picsum.photos/400/400/?image=20" class="rounded-0"></b-card-img>
+      </b-col> -->
+      <b-col  >
+         <!-- <b-col class="right-col d-flex align-items-center justify-content-center" style="margin-top:100px;">
+        <div class="" style="background-color: #ffffff; padding: 2vh; border-radius: 10px; opacity: .9;"> -->
+       
+          
+        
+          
+          <b-card-text>
+           <b-form >
+
+              <div class="mb-4 mr-1">
+               <span style="font-size:25px;font-weight:bold;"> Sign up</span>
+              </div>
+              <div class="text-center ">
+               
+                 <b-input  class="form-control input"
+                type="text"
+                autofocus
+              
+                placeholder="First Name"
+               />
+             
+               
+               <b-input  class="form-control input"
+                type="text"
+                autofocus
+              
+                placeholder="Last Name" 
+                 />
+            
+              <b-input  class="form-control input"
+                type="text"
+                autofocus
+                         placeholder="Email/Mobile" 
+               />
+             
+               <b-input  class="form-control input"
+                type="text"
+                autofocus
+                placeholder="Username" 
+                />
+
+               
+
+<!--               
+                 <b-form-radio-group
+              id="radio-slots"
+             
+             :options="options"
+            
+               />
+              
+              <b-input  class="form-control input"
+                type="date"
+                autofocus
+                         
+               />
+              
+               <b-form-textarea
+          id="textarea"
+     
+          placeholder="Address..."
+          rows="2"
+          
+    ></b-form-textarea>
+             <br>
+           <b-form-select v-model="selected" class="mb-3">
+      <option :value="null">Please select an option</option>
+      <option value="10th">10th</option>
+      <option value="12th">12th</option>
+      <option value="ug">UG</option>
+       <option value="pg">PG</option>
+    </b-form-select> -->
+
+                <br>
+                <b-button autofocus class="btn-sm btn-block login-btn" type="submit">
+                  Register
+                </b-button>
+                <hr>
+                <span>or</span>
+                <div class="text-center">
+                 <p class="text-css ml-2 "><a href="#/login" >sign in to your account</a></p>
+                </div>
+            </div>
+           </b-form>
+          </b-card-text>
+           </b-col>
+    </b-row>
+      
+      
+     
+  </b-card>
+</div>
+        </div>
       </b-col>
       <b-col class="text-center">
         <div class="text-center pt-3">
         </div>
     
+      
       </b-col>
     </b-row>
   </b-container>
@@ -39,7 +140,12 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js App',
+      options :[
+        { text : 'Male' , value : 'male'},
+        { text : 'Female' , value : 'female'},
+      ],
+      selected:null
     }
   }
 }
@@ -54,7 +160,7 @@ export default {
   height:90vh;
 }
 .login-screen {
-    background-image: url('/static/images/exam-success.jpg');
+    background-image: url('/static/images/lap.jpg');
     /* background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -101,8 +207,8 @@ margin-left:20px
   /* background-color:#3ec0da; */
    /* background: #1b5a7c; */
    background-color:var(--main-primary-color);
-   /* color:#1b5a7c; */
-   color:#ffff;
+   color:#1b5a7c;
+   /* color:#ffff; */
    border-radius: 25px;
    border-color: #0000;
   font-weight:bold;
@@ -147,10 +253,10 @@ cursor:pointer;
 /* margin-right:80px; */
 }
 .left-col-text{
-margin-top:100px;
+margin-top:30px;
 color:var(--main-secondary-color);
-font-size:55px;
-/* font-weight:bold; */
+font-size:15px;
+ /* font-weight:bold;  */
 }
 .right-col-text{
 font-weight:bold;
