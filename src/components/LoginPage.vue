@@ -84,10 +84,10 @@ export default {
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
-       fbSignInParams: {
-     scope: 'email,user_likes,public_profile ',
-     return_scopes: true
-   }
+  //      fbSignInParams: {
+  //    scope: 'email,user_likes,public_profile ',
+  //    return_scopes: true
+  //  }
        }
   },
   methods :{
