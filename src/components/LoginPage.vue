@@ -23,13 +23,15 @@
                 <div>
            <b-card  style="max-width: 740px;">
         <b-row >
-     
+            <b-col>
+              <b-img src="/static/images/log.jpeg"></b-img>
+            </b-col>
          <b-col  >
                  
         
           
           <b-card-text>
-            <b-form  >
+            <b-form  @submit.prevent="userLogin">
                <div class="mb-4 mr-1">
                <span style="font-weight:bold;font-size:25px;"> Sign in</span>
               </div>
@@ -46,12 +48,13 @@
                 <b-col class="mt-4">
                   <b-input  class="form-control input"
                     type="text"
-                   
+                     v-model="user.contact"
                     autofocus
                     placeholder="Email/Mobile/Username" />
+
                     <b-input  class="form-control input"
                     type="password"
-                  
+                      v-model="user.password"
                     autofocus
                     placeholder="Password" />
                     <div class="d-flex justify-content-between custom-css" >
@@ -79,21 +82,47 @@
 </b-container>
 </template>
 <script>
+import AccountApi from "@/service/Account";
 export default {
   name: 'HelloWorld',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
-  //      fbSignInParams: {
-  //    scope: 'email,user_likes,public_profile ',
-  //    return_scopes: true
-  //  }
+     user: {
+      contact: "",
+      password: "",
+    }
        }
   },
   methods :{
       createAccount(){
           this.$router.push("/");
-      }
+      },
+      userLogin:function(){
+        console.log("----called---");
+    //this.isLoading=true;
+    AccountApi.userLogin(this.user)
+      .then(response => {
+        this.$session.start();
+        this.$session.set("access_token", response.data.access_token);
+        this.$session.set("refresh_token", response.data.refresh_token);
+        this.$session.set("contact", this.user.contact);
+        // toast({
+        //   type: "success",
+        //   title: "Signed in successfully"
+        // });
+        // this.isLoading=false;
+          this.$router.replace(this.$route.query.redirect || "/success");
+      })
+      .catch(err => {
+        console.log(err);
+        // swal({
+        //   type: "error",
+        //   title: "Bad credentials"
+        // });
+        return false;
+      });
+  }
   }
 }
 </script>

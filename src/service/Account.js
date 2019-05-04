@@ -100,5 +100,32 @@ export default {
             });
         });
     },
+    userLogin(user) {
+        var authAxios = axios.create({
+            baseURL: oauthServerLocation,
+        });
+        return new Promise((resolve, reject) => {
+            authAxios({
+                method: 'post',
+                url: 'oauth/token',
+                headers: {
+                    'Authorization': 'Basic ' + btoa("barClientIdPassword:password"),
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                params: {
+                    'grant_type': 'password',
+                    'username': user.contact,
+                    'password': user.password
+                }
+            }).then((response) => {
+                axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.access_token;
+                // localStorage.setItem('isAuthenticated', true);
+                resolve(response);
+            }).catch((err) => {
+                reject(err);
+            });
+        });
+    }
 
 }

@@ -17,7 +17,10 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 // import fullscreen from 'vue-fullscreen';
 // Vue.use(fullscreen)
-
+import VueSession from 'vue-session';
+Vue.use(VueSession, {
+    persist: true
+});
 
 /* eslint-disable no-new */
 new Vue({

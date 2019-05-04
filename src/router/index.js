@@ -4,6 +4,7 @@ import RegistrationPage from '@/components/RegistrationPage'
 import LoginPage from '@/components/LoginPage'
 import OtpPassword from '@/components/OtpPassword'
 import MailPassword from '@/components/MailPassword'
+import Success from '@/components/Success.vue'
 
 Vue.use(Router)
 
@@ -31,5 +32,11 @@ export default new Router({
       component: MailPassword,
       // props: true,
     },
+    {
+      path: '/success',
+      name: 'Success',
+      component: Success,
+      // props: true,
+    }
   ]
 })
