@@ -178,6 +178,42 @@ export default {
                 reject(err);
             });
         });
+    },
+    studentRegister(data) {
+        var authAxios = axios.create({
+            baseURL: oauthServerLocation,
+        });
+        return new Promise((resolve, reject) => {
+            console.log("----Student Register from Accoun Js ---"+data);
+            authAxios({
+                method: 'post',
+                url: '/insertStudent',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                data: {
+                    studentFirstName: data.studentFirstName,
+     studentLastName : data.studentLastName,
+     applicationDate : data.applicationDate,
+     fatherName: data.fatherName,
+     motherName: data.motherName,
+     studentDob: data.studentDob,
+     studentGender: data.studentGender,
+     studentAddress: data.studentAddress,
+     studentMobile : data.studentMobile,
+     fatherMobile:data.fatherMobile,
+     motherMobile: data.motherMobile,
+     studentEmail: data.studentEmail,
+     studentQualification: data.studentQualification
+                    
+                },
+            }).then((response) => {
+                console.log("***********",response.data);
+                resolve(response);
+            }).catch((err) => {
+                reject(err);
+            });
+        });
     }
 
 }

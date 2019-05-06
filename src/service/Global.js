@@ -47,5 +47,29 @@ export default {
                 reject(err);
             });
         });
-    }
+    },
+    uploadImage: function (file, userId) {
+        console.log(file)
+          var authAxios = axios.create({
+              baseURL: oauthServerLocation,
+          });
+          let formData = new FormData();
+          //  let userId = this.$session.get("current_user").id;
+          formData.append("file", file[0]);
+          return new Promise((resolve, reject) => {
+              let config = {
+                  headers: {
+                      "Content-Type": "multipart/form-data"
+                  },
+              };
+              authAxios
+                  .post("setting/uploadImage/" + userId, formData, config)
+                  .then(response => {
+                      resolve(response);
+                  })
+                  .catch(err => {
+                      reject(err);
+                  });
+          });
+      },
 }

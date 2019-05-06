@@ -56,15 +56,17 @@ Vue.use(Router)
   const router = new Router({ routes });
 
 
-
 router.beforeEach((to, from, next) => {
   var data = {};
   data = JSON.parse(localStorage.getItem("vue-session-key")) == null ? {} : JSON.parse(localStorage.getItem("vue-session-key"));
   // if(data!=null)
   // console.log('Checking Logging info...', data.access_token);
   // if (to.matched.some(record => record.meta.requiresAuth) &&  data!=null?!data.hasOwnProperty('access_token'):false){
+ 
+  console.log("Access Token : ",data.hasOwnProperty('access_token'));
   if (to.matched.some(record => record.meta.requiresAuth) && !data.hasOwnProperty('access_token')) {
     
+    console.log("if block called");
           next({
               path: '/',
               query: {
@@ -92,7 +94,8 @@ router.beforeEach((to, from, next) => {
   //             });
   //         }
       } else {
-          next();
+        console.log("else block called"+next());
+          //next();
       }
   
 });
