@@ -122,9 +122,12 @@ export default {
             userDetails: this.$store.state.userDetails,
         }
     },
-    mounted() {
+   async mounted() {
         this.user.token = this.$route.query.token;
         console.log("refreshing mail password page..",this.userDetails);
+        await this.getUserDetails();
+  this.user.contact=this.userDetails.contact;
+  console.log(this.userDetails.contact);
     },
     methods: {
         setPassword:function(){         
@@ -140,7 +143,7 @@ export default {
             return new Promise((resolve, reject) => {
                 Account.mailPassword(data)
                 .then(response=>{
-                    // this.loginUser();
+                    this.loginUser();
                     console.log("mail password response",response);
                     resolve(response);
                 })
@@ -150,6 +153,50 @@ export default {
                 });
             });
         },
+
+          loginUser:function(){
+        console.log("----called---"+this.user);
+    //this.isLoading=true;
+    Account.userLogin(this.user)
+      .then(response => {
+        this.$session.start();
+        this.$session.set("access_token", response.data.access_token);
+        this.$session.set("refresh_token", response.data.refresh_token);
+        this.$session.set("contact", this.user.contact);
+        // toast({
+        //   type: "success",
+        //   title: "Signed in successfully"
+        // });
+        // this.isLoading=false;
+          this.$router.replace(this.$route.query.redirect || "/success");
+      })
+      .catch(err => {
+        console.log(err);
+        // swal({
+        //   type: "error",
+        //   title: "Bad credentials"
+        // });
+        return false;
+      });
+  },
+  getUserDetails:function(){
+  return new Promise((resolve, reject) => {
+        // console.log(this.user.token);
+          let data=this.user;
+          console.log(data)
+          Account.getUserDetails(data)
+            .then(response => {
+              console.log("details",response.data);
+              this.userDetails=response.data;
+              this.username=response.data.username;
+              resolve(response);
+            })
+            .catch(err => {
+              console.log(err);
+              reject(err);
+            });
+        });
+},
     }
 }
 </script>

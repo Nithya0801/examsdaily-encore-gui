@@ -126,6 +126,58 @@ export default {
                 reject(err);
             });
         });
+    },
+    getUserDetails(data) {
+        var authAxios = axios.create({
+            baseURL: oauthServerLocation,
+        });
+        return new Promise((resolve, reject) => {
+            authAxios({
+                method: 'get',
+                url: 'account/tokenVerify?token=' + data.token,
+            }).then((response) => {
+                resolve(response);
+            }).catch((err) => {
+                reject(err);
+            });
+        });
+    },
+    getUserInfo(session) {
+        var authAxios = axios.create({
+            baseURL: oauthServerLocation,
+        });
+        // let email = contact.email;
+        // console.log(email);
+        return new Promise((resolve, reject) => {
+            authAxios({
+                method: 'get',
+                url: 'manage/user/find/' + session.get("contact"),
+            }).then((response) => {
+                session.set('current_user', response.data);
+                // if(session.get('current_user')!=null)
+                //   if(session.get('current_user').avatar!=null)
+                //     this.getAndLoadImage(session);
+                resolve(response);
+            }).catch((err) => {
+                reject(err);
+            });
+        });
+    },
+    logout(accessToken) {
+        var authAxios = axios.create({
+            baseURL: oauthServerLocation,
+        });
+        return new Promise((resolve, reject) => {
+            authAxios({
+                method: 'post',
+                url: 'oauth/token/revokeById/' + accessToken,
+            }).then((response) => {
+                axios.defaults.headers.common['Authorization'] = 'Bearer ';
+                resolve(response);
+            }).catch((err) => {
+                reject(err);
+            });
+        });
     }
 
 }

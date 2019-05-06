@@ -113,6 +113,9 @@ export default {
     },
     async mounted() {
         console.log("refreshing otp password page..",this.userDetails);
+         // await this.getUserDetails();
+  this.user.contact=this.userDetails.contact;
+  console.log(this.userDetails.contact);
     },
     methods: {
         setPassword:function(){
@@ -131,7 +134,7 @@ export default {
             Account.otpVerify(data)
               .then(response=>{
                 console.log("Response",response.data)
-                //   this.loginUser();
+                  this.loginUser();
                   resolve(response);
               })
               .catch(err=>{
@@ -141,33 +144,32 @@ export default {
            });
 
         },
-        // otpVerify(data) {
-        //     var serverLocation="http://localhost:9088";
-        //     var authAxios = axios.create({
-        //         baseURL: serverLocation,
-        //     });
-        //     console.log(data)
-        //     return new Promise((resolve, reject) => {
-        //         authAxios({
-        //             method: 'post',
-        //             url: 'account/otpVerify',
-        //             data: {
-        //                 verifyId: data.verifyId,
-        //                 generatedOtp: data.generatedOtp,
-        //                 contact: data.contact,
-        //                 username: data.username,
-        //                 firstName: data.firstName,
-        //                 lastName: data.lastName,
-        //                 password: data.password
-        //             },
-        //         }).then((response) => {
-        //             // console.log("otp verify response",response);
-        //             resolve(response);
-        //         }).catch((err) => {
-        //             reject(err);
-        //         });
-        //     });
-        // },
+      
+      loginUser:function(){
+        console.log("----called---"+this.user.contact);
+    //this.isLoading=true;
+    Account.userLogin(this.user)
+      .then(response => {
+        this.$session.start();
+        this.$session.set("access_token", response.data.access_token);
+        this.$session.set("refresh_token", response.data.refresh_token);
+        this.$session.set("contact", this.user.contact);
+        // toast({
+        //   type: "success",
+        //   title: "Signed in successfully"
+        // });
+        // this.isLoading=false;
+          this.$router.replace(this.$route.query.redirect || "/success");
+      })
+      .catch(err => {
+        console.log(err);
+        // swal({
+        //   type: "error",
+        //   title: "Bad credentials"
+        // });
+        return false;
+      });
+  }
         
     }
 }
