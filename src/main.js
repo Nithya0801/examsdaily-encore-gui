@@ -22,6 +22,21 @@ Vue.use(VueSession, {
     persist: true
 });
 
+
+
+
+Vue.mixin({
+  data: function() {
+      return {
+          get resourceLocation() {
+              //return "https://test.examsdaily.in:8088/uploads/images/";
+               return "http://localhost:9088/uploads/images/";
+          },
+       
+      }
+  }
+});
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

@@ -48,7 +48,7 @@ export default {
             });
         });
     },
-    uploadImage: function (file, userId) {
+    uploadImage: function (file) {
         console.log(file)
           var authAxios = axios.create({
               baseURL: oauthServerLocation,
@@ -63,7 +63,7 @@ export default {
                   },
               };
               authAxios
-                  .post("setting/uploadImage/" + userId, formData, config)
+                  .post("setting/uploadImage/", formData, config)
                   .then(response => {
                       resolve(response);
                   })

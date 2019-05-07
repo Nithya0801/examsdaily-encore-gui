@@ -55,8 +55,8 @@
         </b-navbar-nav>
       </b-collapse> -->
     </b-navbar>
-    <!-- <user-setting-modal :currentUser="currentUser" :image="currentUser!=null?currentUser.avatar:null"></user-setting-modal>
-    <loader v-if="isLoading"></loader> -->
+   
+     <!--<loader v-if="isLoading"></loader> -->
 </div>
 </template>
 <script>
@@ -64,6 +64,7 @@ import AccountApi from '@/service/Account'
 
 export default {
       props: ["currentUser", 'image'],
+      
       methods:{
           logout: function() {
       // console.log(this.$session.id());

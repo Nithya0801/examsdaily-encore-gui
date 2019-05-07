@@ -5,7 +5,9 @@ import LoginPage from '@/components/LoginPage'
 import OtpPassword from '@/components/OtpPassword'
 import MailPassword from '@/components/MailPassword'
 import Success from '@/components/Success.vue'
-import PreApplication from '@/components/PreApplication.vue'
+import PreApplication from '@/components/PreApplication'
+import ProfilePicture from '@/components/ProfilePicture'
+
 
 Vue.use(Router)
 
@@ -50,7 +52,13 @@ Vue.use(Router)
         requiresAuth: true,
         
     }
-    }
+    },
+    {
+      path: '/profile',
+      name: 'ProfilePicture',
+      component: ProfilePicture
+    },
+   
   ];
 
   const router = new Router({ routes });

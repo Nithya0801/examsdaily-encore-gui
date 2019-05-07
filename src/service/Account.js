@@ -204,16 +204,39 @@ export default {
      fatherMobile:data.fatherMobile,
      motherMobile: data.motherMobile,
      studentEmail: data.studentEmail,
-     studentQualification: data.studentQualification
-                    
+     studentQualification: data.studentQualification,
+         avatar:data.avatar           
                 },
             }).then((response) => {
-                console.log("***********",response.data);
+                console.log("#####$$$@@@",response.data);
                 resolve(response);
             }).catch((err) => {
                 reject(err);
             });
         });
-    }
+    },
+
+    studentInfo(data) {
+        var authAxios = axios.create({
+            baseURL: oauthServerLocation,
+        });
+        return new Promise((resolve, reject) => {
+            authAxios({
+                method: 'get',
+                url: '/getStudentInfo/'+data
+              
+                
+            }).then((response) => {
+                console.log("Response data from UserAPI : "+response.data);
+                data=response.data;
+                resolve(response);
+                console.log("-----/hello-----"+response);
+            }).catch((err) => {
+                //reject(err);
+                console.log("-----/hello::error ---------"+err);
+            });
+            
+        });
+    },
 
 }
