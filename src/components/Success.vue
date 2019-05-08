@@ -97,7 +97,7 @@ export default {
 }
 .left-col-text{
 margin-top:30px;
-color:var(--main-secondary-color);
+/* color:var(--main-secondary-color); */
 font-size:15px;
  /* font-weight:bold;  */
 }

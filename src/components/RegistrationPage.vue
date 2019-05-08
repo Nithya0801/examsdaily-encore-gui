@@ -23,7 +23,7 @@
         <div class="left-col-text">
           <!-- <span>Registration Page</span> -->
 
-          <div>
+          <div style="padding-top:5rem;">
            <b-card  style="max-width: 740px;">
             <b-row >
               <b-col >
@@ -64,7 +64,7 @@
                         <hr>
                         <span>or</span>
                         <div class="text-center">
-                        <p class="text-css ml-2 "><a href="#/login" >sign in to your account</a></p>
+                        <p class="text-css ml-2 "><a href="#/" >sign in to your account</a></p>
                         </div>
                     </div>
                   </b-form>
@@ -297,7 +297,11 @@ margin-left:20px
   font-weight:bold;
   font-size:18px;
 }
-
+.btn-secondary {
+    color: #ffff;
+    background: rgb(78, 140, 226);
+    border-color: #0000;
+}
 .btn-secondary:hover {
     color: #ffff;
     background: #0766EB;

@@ -14,12 +14,12 @@ Vue.use(Router)
 //export default new Router({
   const routes =  [
     {
-      path: '/',
+      path: '/register',
       name: 'RegistrationPage',
       component: RegistrationPage
     },
     {
-      path: '/login',
+      path: '/',
       name: 'LoginPage',
       component: LoginPage
     },

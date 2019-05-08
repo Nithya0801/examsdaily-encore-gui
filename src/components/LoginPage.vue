@@ -20,7 +20,7 @@
     <b-row>
       <b-col cols="12" md="20" class="login-screen left-col d-flex  justify-content-center" >
          <div class="left-col-text">
-                <div>
+                <div style="padding-top:5rem;">
            <b-card  style="max-width: 740px;">
         <b-row >
             <b-col>
@@ -30,7 +30,7 @@
                  
         
           
-          <b-card-text>
+          <b-card-text >
             <b-form  @submit.prevent="userLogin">
                <div class="mb-4 mr-1">
                <span style="font-weight:bold;font-size:25px;"> Sign in</span>
@@ -96,7 +96,7 @@ export default {
   },
   methods :{
       createAccount(){
-          this.$router.push("/");
+          this.$router.push("/register");
       },
       userLogin:function(){
         console.log("----called---");
@@ -188,7 +188,11 @@ margin-left:20px
   font-weight:bold;
   font-size:18px;
 }
-
+.btn-secondary {
+    color: #ffff;
+    background: rgb(78, 140, 226);
+    border-color: #0000;
+}
 .btn-secondary:hover {
     color: #ffff;
     background: #0766EB;
