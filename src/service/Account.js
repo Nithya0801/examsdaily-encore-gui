@@ -19,10 +19,11 @@ export default {
                 data: {
                     username: data.username,
                     contact: data.contact,
-                    firstName: data.firstName,
-                    lastName: data.lastName
+                    mobileNumber: data.mobileNumber,
+                    roleType:data.roleType
                 },
             }).then((response) => {
+                console.log("register api.....",response);
                 resolve(response);
             }).catch((err) => {
                 reject(err);
