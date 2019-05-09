@@ -23,7 +23,7 @@
              <div class="profile-pic">
                  <button @click="imageSelected">
                      <input type="file" accept="image/jpeg, image/png" @change="imageSelected" title = " " style="opacity: 0.0; position: absolute; top:0; left: 0; bottom: 0; right:0; width: 100%; height:100%;">
-                    <b-img :src="imageUrl!=null?imageUrl.replace('__dexters_access_token_9836758498731097845__', $session.get('access_token')).replace('__dexters_resource_location_9836758498731097845__',resourceLocation.replace('images','avatars')):'/static/images/user96.png'" width="110" height="110" style="border-radius:55px;"></b-img>
+                    <b-img :src="imageUrl!=null?imageUrl.replace('__dexters_access_token_9836758498731097845__', $session.get('access_token')).replace('__dexters_resource_location_9836758498731097845__',resourceLocation.replace('images','avatars')):'/static/images/user96.png'" width="110" height="110"></b-img>
                  
                  </button>
               <div class="editImage  shadow" >
@@ -70,10 +70,12 @@ export default {
   },
   methods: {
     imageSelected: function(e) {
+      console.log("..........",e)
       this.files = e.target.files || e.dataTransfer.files;
       console.log(this.files);
       this.onUploadUserImage();
       var input = event.target;
+      console.log("----------"+input.files);
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
                 reader.onload = (e) => {

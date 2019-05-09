@@ -3,7 +3,7 @@
         <main-header  :currentUser="currentUser"></main-header>
         <sub-header ></sub-header>
 
-        <b-container fluid style="margin-top:2px">
+        <b-container v-if="!isRegistered" fluid style="margin-top:2px">
           <b-row>
             <b-col class=" app-form">
                 <b-row>
@@ -149,194 +149,11 @@
           </b-row>
         
         </b-container>
-    <!-- <div>
-       <b-row>
-         <b-col>
-            <b-row>
-         <b-col>
-           <br>
-      <h3><center>Pre-Application Form Entry</center></h3>
-         </b-col>
-         <b-col>
-             <b-row>
+  
 
- <profile-picture @imageUrl="onSetImageUrl" :currentUser="currentUser" :image="currentUser!=null?currentUser.avatar:null"></profile-picture>
-             
-        </b-row>
-         </b-col>
-         
-       </b-row> 
-      
-     <b-form  @submit.prevent="studentRegister">
-      
-      
-       <br>
-        <b-card>
-       <b-row>
-         <b-col>
-           <div class="form-row">
-          <label class="col-sm-3 col-form-label"  for="firstname">First Name :</label>
-         
-          <b-input type="text"   v-model="student.studentFirstName" class="form-control w-50"></b-input>
-        </div>
-         </b-col>
-         <b-col>
-           <div class="form-row">
-          <label class="col-sm-3 col-form-label"  for="lastname">Last Name :</label>
-          <b-input type="text"  v-model="student.studentLastName" class="form-control w-50" />
-        </div>
-         </b-col>
-         <b-col>
-         
-         <div class="form-row">
-          <label class="col-sm-3 col-form-label"  for="appln">Application Date :</label>
-          <b-input type="date" class="form-control w-50 p-3 mb-1"  v-model="student.applicationDate" />
-        </div>
-        </b-col>
-       </b-row>
-        </b-card>
-       <br> 
-       <b-card>
-       <b-row>
-          <b-col>
-           <div class="form-row">
-          <label class="col-sm-3 col-form-label"  for="lastname">Father's Name :</label>
-          <b-input type="text" class="form-control w-50"  v-model="student.fatherName"/>
-        </div>
-         </b-col>
-          <b-col>
-           <div class="form-row">
-          <label class="col-sm-3 col-form-label"  for="lastname">Mother's Name :</label>
-          <b-input type="text" class="form-control w-50 p-3 mb-1" v-model="student.motherName"/>
-        </div>
-         </b-col>
-          <b-col>
-           <div class="form-row">
-          <label class="col-sm-3 col-form-label"  for="lastname">Father's Occupation :</label>
-          <b-input type="text" class="form-control w-50"/>
-        </div>
-         </b-col>
-       </b-row>
-       </b-card>
-  <br>
-  <b-card>
-         <b-row>
-         <b-col>
-           <div class="form-row">
-          <label class="col-sm-3 col-form-label"  for="firstname">Address :</label>
-          
-         
-          <b-form-textarea rows="2" class="form-control w-50" v-model="address.street"></b-form-textarea>
-        </div>
-         </b-col>
-         <b-col>
-           <div class="form-row">
-          <label class="col-sm-3 col-form-label"  for="lastname">City:</label>
-          <b-input type="text" class="form-control w-50" v-model="address.city" />
-        </div>
-         </b-col>
-          <b-col>
-           <div class="form-row">
-          <label class="col-sm-3 col-form-label"  for="lastname">State:</label>
-          <b-input type="text" class="form-control w-50" v-model="address.state"/>
-        </div>
-         </b-col>
-          <b-col>
-           <div class="form-row">
-          <label class="col-sm-3 col-form-label"  for="lastname">Pincode:</label>
-          <b-input type="text" class="form-control w-50 p-3 mb-1" v-model="address.zipcode" />
-        </div>
-         </b-col>
-       </b-row>
-  </b-card>
-<br>
-<b-card>
-       <b-row>
-         <b-col>
-           <div class="form-row">
-               <label class="col-sm-3 col-form-label"  for="lastname">Gender : </label>
-              
-              <br>
-             <b-form-radio-group v-model="student.studentGender">
-        <b-form-radio value="m">Male</b-form-radio>
-        <b-form-radio value="f">Female</b-form-radio>
-         </b-form-radio-group>
-           </div>
-         </b-col>
-
-
-         <b-col>
-         
-         <div class="form-row">
-          <label class="col-sm-3 col-form-label"  for="appln">Date Of Birth:</label>
-          <b-input type="date" class="form-control w-50 p-3 mb-1" v-model="student.studentDob" />
-        </div>
-        </b-col>
-
-         <b-col>
-         
-         <div class="form-row">
-          <label class="col-sm-3 col-form-label"  for="appln">Email ID :</label>
-          <b-input type="email" class="form-control w-50 p-3 mb-1" v-model="student.studentEmail" />
-        </div>
-        </b-col>
-       </b-row></b-card>
-<br>
-<b-card>
-       <b-row>
-           <b-col>
-           <div class="form-row">
-          <label class="col-sm-3 col-form-label"  for="lastname">Student's Mobile</label>
-          <b-input type="text" class="form-control w-50" v-model="student.studentMobile"/>
-        </div>
-         </b-col>
-          <b-col>
-           <div class="form-row">
-          <label class="col-sm-3 col-form-label"  for="lastname">Father's Mobile</label>
-          <b-input type="text" class="form-control w-50" v-model="student.fatherMobile"/>
-        </div>
-         </b-col>
-          <b-col>
-           <div class="form-row">
-          <label class="col-sm-3 col-form-label"  for="lastname">Mother's Mobile</label>
-          <b-input type="text" class="form-control w-50 p-3 mb-1" v-model="student.motherMobile"/>
-        </div>
-         </b-col>
-       </b-row>
-</b-card>
-<br>
-<b-card>
-      <b-row>
-        <b-col>
-             <div class="form-row">
-                <label class="col-sm-3 col-form-label"  for="lastname">Qualification</label>
-           <b-form-select v-model="selected" :options="qualification" class="form-control w-25"></b-form-select>
-             </div>
-        </b-col>
-
-         <b-col>
-           <div v-if="selected != null && selected != '10th' && selected != '12th'">
-             <div class="form-row">
-                <label class="col-sm-3 col-form-label"  for="lastname">Stream</label>
-              <b-input type="text" class="form-control w-50 p-3 mb-1" v-model="stream" />
-           </div>
-             </div>
-        </b-col>
-      </b-row>
-</b-card>
-      <br>
-      <b-row>
-        <b-col>
-           <b-button autofocus class="w-50 login-but" type="submit">
-                  Register
-                </b-button>
-        </b-col>
-      </b-row>
-    </b-form> 
-      
-         </b-col>
-       </b-row>
-    </div> -->
+    <div v-if="isRegistered">
+      <view-student-details :student="student"></view-student-details>
+    </div>
     </div>
 </template>
 
@@ -347,12 +164,14 @@ import Account from '@/service/Account';
 import Global from '@/service/Global';
 import moment from 'moment'
 import ProfilePicture from '@/components/ProfilePicture'
+import ViewStudentDetails from '@/components/ViewStudentDetails'
 export default {
   props: ['image'],
     components:{
         MainHeader,
         SubHeader,
-        ProfilePicture
+        ProfilePicture,
+        ViewStudentDetails
     },
    
     data:function(){
@@ -403,6 +222,7 @@ export default {
       imageData:"",
       imageUrl:null,
       studentId:"",
+      isRegistered:false
 
         }
     },
@@ -452,7 +272,7 @@ export default {
     studentRegister: function() {
    
       console.log("called student Register function--")
-  console.log(moment(this.student.applicationDate).format('DD/MM/YYYY'));
+  console.log(moment(this.student.applicationDate).format('YYYY-MM-DD'));
       let addr={
         "street" : this.address.street,
         "city" : this.address.city,
@@ -462,10 +282,12 @@ export default {
     let data = {
      "studentFirstName": this.student.studentFirstName,
      "studentLastName" : this.student.studentLastName,
-     "applicationDate" : moment(this.student.applicationDate).format('DD/MM/YYYY'),
+     "applicationDate" : moment(this.student.applicationDate).format('YYYY-MM-DD'),
+    // "applicationDate" : this.student.applicationDate,
      "fatherName": this.student.fatherName,
      "motherName": this.student.motherName,
-     "studentDob": moment(this.student.studentDob).format('DD/MM/YYYY'),
+     "studentDob": moment(this.student.studentDob).format('YYYY-MM-DD'),
+    //  "studentDob": this.student.studentDob,
      "studentGender": this.student.studentGender,
      "studentAddress": addr,
      "studentMobile" : this.student.studentMobile,
@@ -486,9 +308,12 @@ export default {
         .then(response => {
          console.log("7777 *****"+response.data);
          this.studentId=response.data;
-        //  Account.studentInfo(this.studentId).then(response=>{
-        //    console.log("$$$$$",response.data);
-        //  });
+         Account.studentInfo(this.studentId).then(response=>{
+           this.student.studentDob
+           this.isRegistered=true;
+           this.student=response.data;
+           console.log("$$$$$",this.student);
+         });
       //   this.$router.push("/viewStudentInfo")
         })
         .catch(err => {
