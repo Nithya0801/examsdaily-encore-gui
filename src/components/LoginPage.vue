@@ -64,10 +64,10 @@
                     <b-button autofocus class="btn-sm btn-block login-btn" type="submit">
                       Login
                     </b-button>
-                  
-                     <div class="text-center">
+                    <br><br>
+                     <!-- <div class="text-center">
                      <p class="text-css mt-4 " @click="createAccount">create an account</p>
-                     </div>
+                     </div> -->
                 </b-col>
             </b-form>
           </b-card-text>
@@ -224,12 +224,11 @@ color:var(--main-primary-color);
 cursor:pointer;
 font-size:12px;
 }
-.text-css{
+/* .text-css{
 color:var(--main-primary-color);
 text-decoration:underline;
 cursor:pointer;
-/* margin-right:80px; */
-}
+} */
 .left-col-text{
 margin-top:30px;
 color:var(--main-secondary-color);

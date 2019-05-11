@@ -14,12 +14,13 @@
      </b-navbar-brand>
      <b-collapse is-nav id="nav_dropdown_collapse" v-if="$session.exists('current_user')">
         <b-navbar-nav class="ml-auto"  >
-      <b-nav-item >
+      <!-- <b-nav-item >
           Contact us: info@examdaily.in
-      </b-nav-item>
+      </b-nav-item> -->
       <b-nav-item-dropdown right>
             <template slot="button-content" v-if="currentUser!=null">
-            {{currentUser.username!=null?currentUser.username:(currentUser.email!=null?currentUser.email:'User')}}
+            <!-- {{currentUser.username!=null?currentUser.username:(currentUser.email!=null?currentUser.email:'User')}} -->
+            Welcome {{role}}
             </template>
               <b-dropdown-item @click="logout">
              <i class="fa fa-sign-out px-2" aria-hidden="true" ></i>Logout
@@ -63,8 +64,8 @@
 import AccountApi from '@/service/Account'
 
 export default {
-      props: ["currentUser", 'image'],
-      
+      props: ["currentUser", "role"],
+            
       methods:{
           logout: function() {
       // console.log(this.$session.id());

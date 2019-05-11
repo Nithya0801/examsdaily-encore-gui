@@ -1,7 +1,7 @@
 <template>
 <div>
-    <main-header  :currentUser="currentUser"></main-header>
-    <sub-header ></sub-header>
+    <main-header :role="role" :currentUser="currentUser"></main-header>
+    <sub-header :role="role"></sub-header>
 
     <!-- <b-container fluid style="margin-top:-88px">
     <b-row>
@@ -48,7 +48,8 @@ export default {
     },
     data:function(){
         return {
-            currentUser:null
+            currentUser:null,
+            role:""
         }
     },
     async mounted(){
@@ -64,6 +65,7 @@ export default {
             .then(response => {
               // this.$session.set("current_user", response.data);
               this.currentUser = response.data;
+              this.role = this.currentUser.roles[0].roleName;
               console.log("Currentuser",this.currentUser)
               resolve(response);
               console.log(this.currentUser);

@@ -19,8 +19,9 @@ export default {
                 data: {
                     username: data.username,
                     contact: data.contact,
-                    mobileNumber: data.mobileNumber,
-                    roleType:data.roleType
+                    password: data.password,
+                    roleType:data.roleType,
+                    registerMode: "DIRECT"
                 },
             }).then((response) => {
                 console.log("register api.....",response);
@@ -237,6 +238,40 @@ export default {
                 console.log("-----/hello::error ---------"+err);
             });
             
+        });
+    },
+    getAllUsers(data) {
+        var authAxios = axios.create({
+            baseURL: oauthServerLocation,
+        });
+        return new Promise((resolve, reject) => {
+            authAxios({
+                method: 'get',
+                url: 'manage/user/find/all',
+            }).then((response) => {
+                resolve(response);
+            }).catch((err) => {
+                reject(err);
+            });
+        });
+    },
+    bulkImport(dataItems) {
+        var authAxios = axios.create({
+            baseURL: oauthServerLocation,
+        });
+        return new Promise((resolve, reject) => {
+            authAxios({
+                method: 'post',
+                url: 'account/userRegister/bulk',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                data: dataItems,
+            }).then((response) => {
+                resolve(response);
+            }).catch((err) => {
+                reject(err);
+            });
         });
     },
 

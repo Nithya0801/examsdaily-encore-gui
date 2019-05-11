@@ -1,80 +1,63 @@
 
 <template>
 <div>
-    <main-header  :currentUser="currentUser"></main-header>
-        <sub-header ></sub-header>
-<!-- <b-container fluid style="padding: 0px;"> -->
-  <!-- <b-navbar sticky toggleable="md" varient="transparent">
-   <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
-    <b-navbar-brand href="#" style="padding:0px;">
-      <b-col class="text-center" fluid >
-       <b-img src="/static/images/exams.svg" height="35"/>
-          <div style="font-family: 'Berkshire Swash', cursive; font-size: 1rem;">
-           <span style="color: #ec3237ff">exams</span><span  style="color: #406ab2ff">daily</span>
-          </div>
-       </b-col>
-     </b-navbar-brand>
-  <b-collapse is-nav id="nav_collapse">
-    <b-navbar-nav class="ml-auto">
-    </b-navbar-nav>
-  </b-collapse>
-</b-navbar> -->
+    <!-- <main-header :role="role" :currentUser="currentUser"></main-header>
+        <sub-header :role="role"></sub-header> -->
 
- <!-- <b-container fluid style="margin-top:-88px">
-    <b-row> -->
+       <b-modal id="registrationPage"
+             :header-text-variant="headerTextVariant"
+              hide-footer
+              title="Add User"
+              ref="registrationPage">
+ <b-container style="margin-left:60px;padding:30px ">
       <b-col class="login-screen left-col d-flex  justify-content-center" >
         <div class="left-col-text">
-          <!-- <span>Registration Page</span> -->
-
-          <!-- <div style="padding-top:5rem;"> -->
            <b-card  style="max-width: 740px;">
+             <!-- <b-row> <b-col>
+                 <vue-xlsx-table class="" @on-select-file="checkSelectedFile">
+                   <b-button autofocus class="btn-sm " type="submit"> Import </b-button>
+                 </vue-xlsx-table>                 
+             </b-col></b-row> -->
             <b-row >
               <b-col >
                   <b-card-text>
-                  <b-form v-if="registerForm" @submit="userRegister">
+                  <b-form @submit="userRegister">
                       <div >
-                      <span style="font-size:25px;font-weight:bold;"> Sign up</span>
+                      <span style="font-size:25px;font-weight:bold;"> Register here </span>
                       </div>
+                      
                       <div class="text-center ">                     
                       
                       <b-input  class="form-control input"
                         type="text"
                         autofocus
-                        v-model="user.contact"
-                        placeholder="Email" />
-
-                        <b-input  class="form-control input"
-                        type="text"
-                        autofocus
                         v-model="user.username"
                         placeholder="Username" />
-                    
+
+                      <b-input  class="form-control input"
+                        type="text"
+                        autofocus
+                        v-model="user.contact"
+                        placeholder="Email/Mobile" />    
                       
                       <b-input  class="form-control input"
                         type="text"
                         autofocus
-                        v-model="user.mobileNumber"
-                        placeholder="Mobile"  />
+                        v-model="user.password"
+                        placeholder="Password"  />
                                                              
                     <b-form-select class="rounded-pill" v-model="selected" :options="roles" ></b-form-select> 
 
                         <br><br>
                         <b-button autofocus class="btn-sm btn-block login-btn" type="submit"> Register </b-button>
-                        
-                        <!--
-                        <span>or</span>
-                         <div class="text-center">
-                        <p class="text-css ml-2 "><a href="#/" >sign in to your account</a></p>
-                        </div> -->
+                   
                     </div>
                   </b-form>
 
-                  <div class="text-center" v-if="mailLogin">
+                  <!-- <div class="text-center" v-if="mailLogin">
                       <b><p style="color:#a8acbc;">Check your email for an Account Activation Link</p></b><br>
-                      <!-- <b-button autofocus class="btn-sm  login-btn" style="width:150px;"  @click="$emit('loginPage')">
-                          Back to Login
-                      </b-button> -->
-                  </div>
+                   
+                  </div> -->
 
                   <!-- <div class="text-center" v-if="otpLogin">
                     <b><p style="color:#a8acbc;">Check your mobile for an OTP for Account Activation</p></b>
@@ -93,18 +76,20 @@
                 </b-card-text>
                 </b-col>
             </b-row>
-    
         </b-card>
         </div>
-        <!-- </div> -->
+      </b-col>  
+ </b-container> 
+    </b-modal>
+<!-- 
+<import-modal :show="showImportModal" :list="importList" @import="listImport" @close="close"></import-modal>
+<user-import-status-modal
+      :show="showUserImportStatusModal"
+      :items="userImportStatus"
+      @close="showUserImportStatusModal=false;"
+    ></user-import-status-modal> -->
 
-        
 
-      </b-col>
-      
-    <!-- </b-row>
-  </b-container> -->
-<!-- </b-container> -->
 </div>
 </template>
 
@@ -112,19 +97,25 @@
 // import axios from 'axios';
 import Account from "@/service/Account";
 import Global from "@/service/Global";
-import MainHeader from '@/components/MainHeader'
-import SubHeader from '@/components/SubHeader'
+// import MainHeader from '@/components/MainHeader'
+// import SubHeader from '@/components/SubHeader'
+// import ImportModal from '@/components/ImportModal'
+// import UserImportStatusModal from '@/components/UserImportStatusModal'
+
 export default {
   name: 'RegistrationPage',
    components:{
-        MainHeader,
-        SubHeader,
-        
+        // MainHeader,
+        // SubHeader,
+        // ImportModal,
+        // UserImportStatusModal,
     },
   
   data () {
     return { 
       selected : null,
+      headerBgVariant: "info",
+      headerTextVariant: "success",
       roles :[
               {text:'--Select Role--', value:null},
               {text:'ROLE_STUDENT', value:'ROLE_STUDENT'},
@@ -136,94 +127,160 @@ export default {
       user: {
         contact: "",
         username:"",
-        mobileNumber:"",
-        roleType:"",
-        
+        password:"",
+        roleType:"",        
       },
-        currentUser:null,
-      otpLogin:false,
-      mailLogin:false,
-      registerForm:true,
-      verifyId:'',
+      // currentUser:null,
+      // otpLogin:false,
+      // mailLogin:false,
+      // registerForm:true,
+      // verifyId:'',
+      // role:'',
+      // importList: [],
+      // showImportModal: false,
+      // userImportStatus: [],
+      // showUserImportStatusModal: false,
     }
   },
 
-    async mounted(){
-         await Global.onPageRefresh(this.$session, this.$router);
-         await this.getUserInfo();
-    },
+    // async mounted(){
+    //      await Global.onPageRefresh(this.$session, this.$router);
+    //      await this.getUserInfo();
+    // },
   methods: {
     userRegister: function() {
         console.log("registering..");
         let data = {
         "contact": this.user.contact,
         "username": this.user.username,
-        "mobileNumber": this.user.mobileNumber,
+        "password": this.user.password,
         "roleType": this.selected,
         }
         console.log("",data);
         Account.registerApi(data)
         .then(response => {
             console.log("registered in API..",response);
-            console.log("verifyId",response.data.verifyId);
-            this.verifyId=response.data.verifyId;
-            if(/^([a-z0-9_\-.])+@([a-z0-9_\-.])+\.([a-z]{2,4})$/.test(this.user.contact))
-            {                    
-                console.log("through email");
-                this.mailLogin=true;
-                this.registerForm=false;
-            }else {
-                console.log("through mobile");
-                this.otpLogin=true;
-                this.registerForm=false;
-                // console.log("mobile")
-            }
+            this.$refs.registrationPage.hide();
+            // console.log("verifyId",response.data.verifyId);
+            // this.verifyId=response.data.verifyId;
+            // if(/^([a-z0-9_\-.])+@([a-z0-9_\-.])+\.([a-z]{2,4})$/.test(this.user.contact))
+            // {                    
+            //     console.log("through email");
+            //     this.mailLogin=true;
+            //     this.registerForm=false;
+            // }else {
+            //     console.log("through mobile");
+            //     this.otpLogin=true;
+            //     this.registerForm=false;
+            //     // console.log("mobile")
+            // }
         })
         .catch(err => {
             console.log(err);
         })
     },
    
-    otpVerify: function() {
-      console.log("verifying OTP",this.user.generatedOtp);
-      let data={
-        "verifyId":this.verifyId,
-        "generatedOtp":this.user.generatedOtp,
-      }
-        return new Promise((resolve, reject) => {
-        Account.registerOtpCheck(data)
-          .then(response=>{
-                console.log("OTP respnse",response.data);
-                this.$store.dispatch("getUserDetails", response.data);
-                this.$router.replace(this.$route.query.redirect || "/otp_password");
-              resolve(response);
-          })
-          .catch(err=>{
-            reject(err);
-            console.log(err);
-          });
-        });
-    },
+    // otpVerify: function() {
+    //   console.log("verifying OTP",this.user.generatedOtp);
+    //   let data={
+    //     "verifyId":this.verifyId,
+    //     "generatedOtp":this.user.generatedOtp,
+    //   }
+    //     return new Promise((resolve, reject) => {
+    //     Account.registerOtpCheck(data)
+    //       .then(response=>{
+    //             console.log("OTP respnse",response.data);
+    //             this.$store.dispatch("getUserDetails", response.data);
+    //             this.$router.replace(this.$route.query.redirect || "/otp_password");
+    //           resolve(response);
+    //       })
+    //       .catch(err=>{
+    //         reject(err);
+    //         console.log(err);
+    //       });
+    //     });
+    // },
      
-    getUserInfo() {
-              console.log("getUserInfo called");
-      return new Promise((resolve, reject) => {
-        if (this.$session.exists("contact")) {
-         Account.getUserInfo(this.$session)
-            .then(response => {
-              // this.$session.set("current_user", response.data);
-              this.currentUser = response.data;
-              console.log("Currentuser",this.currentUser)
-              resolve(response);
-              console.log(this.currentUser);
-            })
-            .catch(err => {
-              console.log(err);
-              reject(err);
-            });
-        }
-      });
-    }
+    // getUserInfo() {
+    //           console.log("getUserInfo called");
+    //   return new Promise((resolve, reject) => {
+    //     if (this.$session.exists("contact")) {
+    //      Account.getUserInfo(this.$session)
+    //         .then(response => {
+    //           // this.$session.set("current_user", response.data);
+    //           this.currentUser = response.data;
+    //           this.role = this.currentUser.roles[0].roleName;
+    //           console.log("Currentuser",this.currentUser)
+    //           resolve(response);
+    //           console.log(this.currentUser);
+    //         })
+    //         .catch(err => {
+    //           console.log(err);
+    //           reject(err);
+    //         });
+    //     }
+    //   });
+    // },
+    // checkSelectedFile(convertedData) {
+    //   // console.log(convertedData);
+    //   this.importList.splice(0);
+    //   if (convertedData && convertedData.body) {
+    //     var userData = convertedData.body;
+    //     if (
+    //       userData[0].hasOwnProperty("Name") &&
+    //       userData[0].hasOwnProperty("Contact") &&
+    //       userData[0].hasOwnProperty("Password") &&
+    //       userData[0].hasOwnProperty("Role")
+    //     ) {
+    //       for (var i = 0; i < userData.length; i++) {
+    //         this.importList.push({
+    //           username: userData[i].Name,
+    //           contact: userData[i].Contact,
+    //           password: userData[i].Password,
+    //           roleType: userData[i].Role,
+    //           registerMode: "DIRECT"
+    //         });
+    //       }          
+    //       this.showImportModal = true;
+    //       // console.log("import");
+    //     } else {
+    //       toast({
+    //         type: "error",
+    //         title: "File does not matches the given format"
+    //       });
+    //     }
+    //   }
+    // },
+    // listImport: function(data) {
+    //   // for (let i = 0; i < data.length; i++) {
+    //   Account.bulkImport(data)
+    //     .then(response => {
+    //       // toast({
+    //       //   type: "success",
+    //       //   title: "User Inserted Successfully"
+    //       // });
+    //       console.log(response);
+    //       this.userImportStatus = response.data;
+    //       // this.getUsers(this.pageCount, this.currentPage);
+    //       // this.totalUsers(this.totalUsersCount);
+    //       // this.getAllUsers();
+    //       this.showUserImportStatusModal = true;
+          
+    //     })
+    //     .catch(err => {
+    //       // toast({
+    //       //   type: "error",
+    //       //   title: err.response.data
+    //       // });
+    //       console.log(err);
+    //       // this.isLoading = false;
+    //     });
+    //   // }
+    //   this.showImportModal = false;
+    // },
+    //  close: function() {
+    //   this.showImportModal = false;
+    // },
   }
 }
 </script>
@@ -233,9 +290,9 @@ export default {
 .left-col{
   height:100vh;
 }
-.right-col{
+/* .right-col{
   height:90vh;
-}
+} */
 .login-screen {
   /* background-image: url('/static/images/lap.jpg'); */
     /* background-position: center;
@@ -293,11 +350,14 @@ color:var(--main-secondary-color);
 font-size:15px;
  /* font-weight:bold;  */
 }
-.right-col-text{
+/* .right-col-text{
 font-weight:bold;
 font-size:25px;
 margin-right:150px;
-}
+} */
+/* .register-card {
+  box-shadow: 10px 15px 20px #b1aeae;
+} */
 
 
 

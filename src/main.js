@@ -22,7 +22,11 @@ Vue.use(VueSession, {
     persist: true
 });
 
+import vueXlsxTable from 'vue-xlsx-table'
+Vue.use(vueXlsxTable, {rABS: false})
 
+import Vuelidate from 'vuelidate';
+Vue.use(Vuelidate);
 
 
 Vue.mixin({

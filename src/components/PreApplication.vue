@@ -1,7 +1,7 @@
 <template>
     <div>
-        <main-header  :currentUser="currentUser"></main-header>
-        <sub-header ></sub-header>
+        <main-header :role="role" :currentUser="currentUser"></main-header>
+        <sub-header :role="role"></sub-header>
 
         <b-container v-if="!isRegistered" fluid style="margin-top:2px">
           <b-row>
@@ -222,7 +222,8 @@ export default {
       imageData:"",
       imageUrl:null,
       studentId:"",
-      isRegistered:false
+      isRegistered:false,
+      role:'',
 
         }
     },
@@ -252,6 +253,7 @@ export default {
             .then(response => {
               // this.$session.set("current_user", response.data);
               this.currentUser = response.data;
+              this.role = this.currentUser.roles[0].roleName;
               console.log("Currentuser",this.currentUser)
               resolve(response);
               console.log(this.currentUser);
@@ -375,10 +377,10 @@ export default {
   border-color: #0000;
 }
 
-.modal-content {
+/* .modal-content {
   border-radius: 1.3rem;
-}
-.profileUpload {
+} */
+/* .profileUpload {
   width: 100px;
   height: 100px;
   -moz-border-radius: 50px;
@@ -387,14 +389,12 @@ export default {
   background-image: url("/static/images/noimage.jpeg");
   background-size: 100px 100px;
   cursor: pointer;
-}
-.nav-link {
+} */
+/* .nav-link {
   display: block;
-  /* padding: 0rem 1.2rem; */
   padding: 0rem 2rem;
   font-size: 17px;
   font-weight: bold;
-  /* padding: 0.5rem 1.1rem; */
 }
 .nav-tabs .nav-link {
   border: 1px solid transparent;
@@ -413,22 +413,22 @@ export default {
   border: none;
   border-bottom: 2px solid #00a1b5;
   border-color: #00a1b5 #00a1b5 00a1b5 #fff;
-}
-a {
+} */
+/* a {
   color: black;
   text-decoration: none;
   background-color: transparent;
   -webkit-text-decoration-skip: objects;
-}
-.btn-edit {
+} */
+/* .btn-edit {
   width: 100px;
   margin-right: 30px;
   border-radius: 20px;
   background-color: #00a1b5;
   font-size: 15px;
   font-weight: bold;
-}
-.profile-pic {
+} */
+/* .profile-pic {
 	position: relative;
 	display: inline-block;
 }
@@ -458,7 +458,7 @@ a {
 
 .editImage a {
 	color:white;
-}
+} */
 .app-form {
   /* background-image: url('/static/images/lap.jpg'); */
   -moz-background-size: cover;

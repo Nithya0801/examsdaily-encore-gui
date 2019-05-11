@@ -26,9 +26,9 @@
                     <b-img :src="imageUrl!=null?imageUrl.replace('__dexters_access_token_9836758498731097845__', $session.get('access_token')).replace('__dexters_resource_location_9836758498731097845__',resourceLocation.replace('images','avatars')):'/static/images/user96.png'" width="110" height="110"></b-img>
                  
                  </button>
-              <div class="editImage  shadow" >
+              <!-- <div class="editImage  shadow" >
              <a href="#"><i class="fa fa-camera" aria-hidden="true" style="cursor:pointer;color:black;">  <input type="file" accept="image/jpeg, image/png" @change="imageSelected" title = " " style="opacity: 0.0; position: absolute; top:0; left: 0; bottom: 0; right:0; width: 100%; height:100%;"/></i></a>
-              </div>
+              </div> -->
 	          </div>
            </label>
            </div>
@@ -106,10 +106,10 @@ export default {
 </script>
 
 <style>
-.modal-content {
+/* .modal-content {
   border-radius: 1.3rem;
-}
-.profileUpload {
+} */
+/* .profileUpload {
   width: 100px;
   height: 100px;
   -moz-border-radius: 50px;
@@ -118,14 +118,12 @@ export default {
   background-image: url("/static/images/uploadimg.png");
   background-size: 100px 100px;
   cursor: pointer;
-}
-.nav-link {
+} */
+/* .nav-link {
   display: block;
-  /* padding: 0rem 1.2rem; */
   padding: 0rem 2rem;
   font-size: 17px;
   font-weight: bold;
-  /* padding: 0.5rem 1.1rem; */
 }
 .nav-tabs .nav-link {
   border: 1px solid transparent;
@@ -144,8 +142,8 @@ export default {
   border: none;
   border-bottom: 2px solid #00a1b5;
   border-color: #00a1b5 #00a1b5 00a1b5 #fff;
-}
-a {
+} */
+/* a {
   color: black;
   text-decoration: none;
   background-color: transparent;
@@ -189,6 +187,6 @@ a {
 
 .editImage a {
 	color:white;
-}
+} */
 </style>
 
