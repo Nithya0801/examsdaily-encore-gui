@@ -10,23 +10,62 @@
               title="Add User"
               ref="registrationPage">
  <b-container style="margin-left:60px;padding:30px ">
-      <b-col class="login-screen left-col d-flex  justify-content-center" >
+      <!-- <b-col class="login-screen left-col d-flex  justify-content-center" >
         <div class="left-col-text">
-           <b-card  style="max-width: 740px;">
-             <!-- <b-row> <b-col>
-                 <vue-xlsx-table class="" @on-select-file="checkSelectedFile">
-                   <b-button autofocus class="btn-sm " type="submit"> Import </b-button>
-                 </vue-xlsx-table>                 
-             </b-col></b-row> -->
+           <b-card  style="max-width: 740px;">            
             <b-row >
               <b-col >
-                  <b-card-text>
-                  <b-form @submit="userRegister">
-                      <div >
-                      <span style="font-size:25px;font-weight:bold;"> Register here </span>
-                      </div>
-                      
-                      <div class="text-center ">                     
+                  <b-card-text> -->
+          <b-form @submit.prevent="userRegister">                     
+              
+              <b-row> <b-col cols="8">
+                <span style="font-size:20px;font-weight:bold;"> Enter details </span>
+                
+                </b-col> </b-row>
+
+              <b-row> <b-col cols="8">
+                <b-input  class="form-control input"
+                type="text"
+                autofocus
+                v-model="user.username"
+                placeholder="Username" /> 
+                <div v-if="$v.user.$dirty">
+                  <p class="error-message" v-if="!$v.user.username.required">Field is required</p>                   
+                </div> </b-col></b-row>
+
+              <b-row> <b-col cols="8">
+                <b-input  class="form-control input"
+                type="text"
+                autofocus
+                v-model="user.contact"
+                placeholder="Email/Mobile" />
+                <div v-if="$v.user.$dirty">
+                  <p class="error-message" v-if="!$v.user.contact.required">Field is required</p>                   
+                </div>  </b-col></b-row>
+
+              <b-row> <b-col cols="8">
+                <b-input  class="form-control input"
+                type="text"
+                autofocus
+                v-model="user.password"
+                placeholder="Password"  />
+                <div v-if="$v.user.$dirty">
+                  <p class="error-message" v-if="!$v.user.password.required">Field is required</p>
+                  <p class="error-message" v-if="!$v.user.password.minLength">Minimum 6 Characters</p>                   
+                </div>  </b-col></b-row>
+
+              <b-row> <b-col cols="8" style="padding-top:1em;">
+                <b-form-select class="rounded-pill" v-model="selected" :options="roles" ></b-form-select> 
+                <div v-if="$v.user.$dirty">
+                  <p class="error-message" v-if="!$v.user.selected.required">Field is required</p>                   
+                </div>                
+              </b-col></b-row>
+          <br>
+              <b-row> <b-col cols="4">
+                <b-button class="btn-sm btn-edit" style="margin-left:25px;" type="submit">Add</b-button>
+              </b-col><b-col cols="4">  <b-button class="btn-sm btn-edit" @click="resetData">Reset</b-button>
+              </b-col></b-row>
+                      <!-- <div class="text-center ">                     
                       
                       <b-input  class="form-control input"
                         type="text"
@@ -51,7 +90,7 @@
                         <br><br>
                         <b-button autofocus class="btn-sm btn-block login-btn" type="submit"> Register </b-button>
                    
-                    </div>
+                    </div> -->
                   </b-form>
 
                   <!-- <div class="text-center" v-if="mailLogin">
@@ -73,12 +112,12 @@
                         </b-button>
                   </b-col>
                 </div> -->
-                </b-card-text>
+                <!-- </b-card-text>
                 </b-col>
             </b-row>
         </b-card>
         </div>
-      </b-col>  
+      </b-col>   -->
  </b-container> 
     </b-modal>
 <!-- 
@@ -97,6 +136,7 @@
 // import axios from 'axios';
 import Account from "@/service/Account";
 import Global from "@/service/Global";
+import { required,minLength} from "vuelidate/lib/validators";
 // import MainHeader from '@/components/MainHeader'
 // import SubHeader from '@/components/SubHeader'
 // import ImportModal from '@/components/ImportModal'
@@ -110,6 +150,23 @@ export default {
         // ImportModal,
         // UserImportStatusModal,
     },
+    validations: {
+     user:{
+       username:{         
+         required,
+       },
+       contact:{
+         required,
+       },
+        password: {
+          required,
+          minLength:minLength(6),
+      },
+      selected: {
+        required
+      }
+     }
+  },
   
   data () {
     return { 
@@ -150,6 +207,7 @@ export default {
   methods: {
     userRegister: function() {
         console.log("registering..");
+        this.$v.$touch();
         let data = {
         "contact": this.user.contact,
         "username": this.user.username,
@@ -178,6 +236,13 @@ export default {
         .catch(err => {
             console.log(err);
         })
+    },
+    resetData: function() {
+        this.user.username='',
+        this.user.contact='',
+        this.user.password='',
+        this.selected=null,
+         this.$v.$reset();
     },
    
     // otpVerify: function() {
@@ -290,15 +355,23 @@ export default {
 .left-col{
   height:100vh;
 }
+.btn-edit{
+  width:85px;
+  border-radius:20px;
+  background-color:#00A1B5;
+  font-size:15px;
+  font-weight:bold;
+}
+.error-message {
+  color: red;
+  font-size: 13px;
+  margin: 5px 0 0 5px;
+}
 /* .right-col{
   height:90vh;
 } */
-.login-screen {
-  /* background-image: url('/static/images/lap.jpg'); */
-    /* background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover; */
+/* .login-screen {
+  
     -moz-background-size: cover;
     -webkit-background-size: cover;
     position:relative;
@@ -306,16 +379,15 @@ export default {
     bottom: 0;
     right: 0;
     left: 0;
-}
-.login-screen:before {
-    content: "";
-    /* background: rgba(0,0,0, 0.1); */
+} */
+/* .login-screen:before {
+    content: "";    
     position: absolute;
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
-}
+} */
 
 .input {
   font-size: 15px;
@@ -326,12 +398,8 @@ export default {
   background-color: #eee;
 }
 
-.login-btn{
-  /* background-color:#3ec0da; */
-   /* background: #1b5a7c; */
-   /* background-color:royalblue; */
+/* .login-btn{  
    background: rgb(17, 203, 228);
-   /* color:#1b5a7c; */
    color:#ffff;
    border-radius: 25px;
    border-color: #0000;
@@ -342,14 +410,13 @@ export default {
   color: #ffff;
   background: rgb(0, 160, 190);
   border-color: #0000;
-}
+} */
 
-.left-col-text{
+/* .left-col-text{
 margin-top:30px;
 color:var(--main-secondary-color);
 font-size:15px;
- /* font-weight:bold;  */
-}
+} */
 /* .right-col-text{
 font-weight:bold;
 font-size:25px;

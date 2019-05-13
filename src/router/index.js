@@ -2,8 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import UserImport from '@/components/UserImport'
 import LoginPage from '@/components/LoginPage'
-import OtpPassword from '@/components/OtpPassword'
-import MailPassword from '@/components/MailPassword'
+// import OtpPassword from '@/components/OtpPassword'
+// import MailPassword from '@/components/MailPassword'
 import Success from '@/components/Success.vue'
 import PreApplication from '@/components/PreApplication'
 import ProfilePicture from '@/components/ProfilePicture'
@@ -27,18 +27,18 @@ Vue.use(Router)
       name: 'LoginPage',
       component: LoginPage
     },
-    {
-      path: '/otp_password',
-      name: 'OtpPassword',
-      component: OtpPassword,
-      // props: true,
-    },
-    {
-      path: '/mail_password',
-      name: 'MailPassword',
-      component: MailPassword,
-      // props: true,
-    },
+    // {
+    //   path: '/otp_password',
+    //   name: 'OtpPassword',
+    //   component: OtpPassword,
+    //   // props: true,
+    // },
+    // {
+    //   path: '/mail_password',
+    //   name: 'MailPassword',
+    //   component: MailPassword,
+    //   // props: true,
+    // },
     {
       path: '/success',
       name: 'Success',
